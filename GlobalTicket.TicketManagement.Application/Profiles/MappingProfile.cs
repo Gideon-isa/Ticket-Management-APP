@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using GlobalTicket.TicketManagement.Application.Features.Events.Queries.GetEventDetail;
+using GlobalTicket.TicketManagement.Application.Features.Events.Queries.GetEventsList;
+using GlobalTicket.TicketManagement.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +10,13 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Application.Profiles
 {
-    internal class MappingProfile
+    public class MappingProfile : Profile
     {
+        public MappingProfile()
+        {
+            CreateMap<Event, EventListVm>().ReverseMap();
+            CreateMap<Event, EventDetailVm>().ReverseMap();
+            CreateMap<Category, CategoryDto>();
+        }
     }
 }

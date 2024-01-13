@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalTicket.TicketManagement.Application.Features.Events
+namespace GlobalTicket.TicketManagement.Application.Features.Events.Queries.GetEventsList
 {
-    internal class EventListVm
+    public class EventListVm
     {
+        public Guid EventId { get; set; }
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
+        public string ImgeUrl { get; set; } = default!;
     }
 }

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Application.Contracts.Persistence
 {
-    internal interface IAsyncRepository
+    public interface IAsyncRepository<T> where T : class
     {
+        Task<T> GetByIdAsync(Guid id);
+        Task<IReadOnlyList<T>> ListAllAsync();
+        Task<T> AddAsync(T entity);
+        Task UpdateAsync(T entity); // This should not be here
+        Task DeleteAsync(T entity);
     }
 }
