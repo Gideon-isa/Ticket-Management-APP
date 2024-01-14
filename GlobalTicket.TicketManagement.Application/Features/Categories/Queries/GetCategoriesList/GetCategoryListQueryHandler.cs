@@ -23,8 +23,8 @@ namespace GlobalTicket.TicketManagement.Application.Features.Categories.Queries.
 
         public async Task<List<CategoryListVm>> Handle(GetCategoryListQuery request, CancellationToken cancellationToken)
         {
-            var result = (await _categoryRepository.ListAllAsync()).OrderBy(x => x.Name);
-            return _mapper.Map<List<CategoryListVm>>(result);
+            var allCategories = (await _categoryRepository.ListAllAsync()).OrderBy(x => x.Name);
+            return _mapper.Map<List<CategoryListVm>>(allCategories);
         }
     }
 }

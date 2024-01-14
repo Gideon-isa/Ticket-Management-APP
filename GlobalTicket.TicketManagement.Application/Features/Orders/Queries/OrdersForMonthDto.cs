@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Application.Features.Orders.Queries
 {
-    internal class OrdersForMonthDto
+    public class OrdersForMonthDto
     {
+        public Guid Id { get; set; }
+        public int OrderTotal { get; set; }
+        public DateTime OrderPlaced { get; set; }
     }
 }
