@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Application.Exceptions
 {
-    internal class BadRequestException
+    public class BadRequestException : Exception
     {
+        public BadRequestException(string message) :base(message)
+        {
+            
+        }
+
     }
 }

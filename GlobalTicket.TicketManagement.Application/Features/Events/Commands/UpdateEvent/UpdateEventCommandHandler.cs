@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GlobalTicket.TicketManagement.Application.Contracts.Persistence;
+using GlobalTicket.TicketManagement.Application.Exceptions;
 using GlobalTicket.TicketManagement.Domain.Entities;
 using MediatR;
 using System;
@@ -27,6 +28,18 @@ namespace GlobalTicket.TicketManagement.Application.Features.Events.Commands.Upd
         public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
             var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
+            if (eventToUpdate == null)
+            {
+                throw new NotFoundException(nameof(Event), request.EventId);
+            }
+
+            var validator = new UpdateEventCommandValidator();
+            var validationResult = await validator.ValidateAsync(request);
+
+            if (validationResult.Errors.Count > 0)
+            {
+                throw new ValidationException(validationResult);
+            }
 
             _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
             await _eventRepository.UpdateAsync(eventToUpdate);
