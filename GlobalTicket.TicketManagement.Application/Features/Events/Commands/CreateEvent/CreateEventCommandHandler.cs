@@ -37,6 +37,7 @@ namespace GlobalTicket.TicketManagement.Application.Features.Events.Commands.Cre
                 throw new ValidationException(validationResult);
             }
 
+
             @event = await _eventRepository.AddAsync(@event);
 
             return @event.EventId;

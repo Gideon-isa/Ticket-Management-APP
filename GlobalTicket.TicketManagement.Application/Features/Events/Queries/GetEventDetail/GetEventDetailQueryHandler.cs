@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GlobalTicket.TicketManagement.Application.Contracts.Persistence;
+using GlobalTicket.TicketManagement.Application.Exceptions;
 using GlobalTicket.TicketManagement.Domain.Entities;
 using MediatR;
 using System;
@@ -25,9 +26,16 @@ namespace GlobalTicket.TicketManagement.Application.Features.Events.Queries.GetE
         public async Task<EventDetailVm> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
         {
             var @event = await _eventRepository.GetByIdAsync(request.Id);
+
+            
             var eventDetailDto = _mapper.Map<EventDetailVm>(@event);
 
             var category = await _categoryRepository.GetByIdAsync(@event.CategoryId);
+
+            if (category == null)
+            {
+                throw new NotFoundException(nameof(Event), request.Id);
+            }
             eventDetailDto.Category = _mapper.Map<CategoryDto>(category);
 
             return eventDetailDto;
