@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using GlobalTicket.TicketManagement.Application.Contracts.Infrastructure;
 using GlobalTicket.TicketManagement.Application.Contracts.Persistence;
 using GlobalTicket.TicketManagement.Application.Exceptions;
+using GlobalTicket.TicketManagement.Application.Models.Mail;
 using GlobalTicket.TicketManagement.Domain.Entities;
 using MediatR;
 using System;
@@ -17,10 +19,13 @@ namespace GlobalTicket.TicketManagement.Application.Features.Events.Commands.Cre
 
         private readonly IMapper _mapper;
 
-        public CreateEventCommandHandler(IEventRepository eventRepository, IMapper mapper)
+        private readonly IEmailService _emailService;
+
+        public CreateEventCommandHandler(IEventRepository eventRepository, IMapper mapper, IEmailService emailService)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         public async Task<Guid> Handle(CreateEventCommand request, CancellationToken cancellationToken)
@@ -37,8 +42,28 @@ namespace GlobalTicket.TicketManagement.Application.Features.Events.Commands.Cre
                 throw new ValidationException(validationResult);
             }
 
-
             @event = await _eventRepository.AddAsync(@event);
+
+
+            // Sending email notification to admin address
+            var email = new Email()
+            {
+                To = "innocentgideon10@gmail.com",
+                Subject = "A new event was created",
+                Body = "A new event was created"
+
+            };
+
+            try
+            {
+                await _emailService.SendEmail(email);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+
 
             return @event.EventId;
 
