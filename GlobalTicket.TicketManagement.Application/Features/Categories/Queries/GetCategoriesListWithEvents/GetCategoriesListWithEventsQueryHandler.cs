@@ -23,6 +23,7 @@ namespace GlobalTicket.TicketManagement.Application.Features.Categories.Queries.
         {
             var list = await _categoryRepository.GetCategoriesWithEvents(request.IncludeHistory);
             return _mapper.Map<List<CategoryEventListVm>>(list);
+            
 
         }
     }
