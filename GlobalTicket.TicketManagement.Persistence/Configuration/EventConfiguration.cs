@@ -9,8 +9,15 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Persistence.Configuration
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EventConfiguration : IEntityTypeConfiguration<Event>
     {
+        /// <summary>
+        /// configuring the event entity to have some constraint on the property name
+        /// </summary>
+        /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<Event> builder)
         {
             builder.Property(e => e.Name)
