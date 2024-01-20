@@ -18,10 +18,11 @@ namespace GlobalTicket.TicketManagement.Persistence
             services.AddDbContext<GlobalTicketDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("GlobalTicketManagementConnectionString"));
+                
             });
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
-            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
 
