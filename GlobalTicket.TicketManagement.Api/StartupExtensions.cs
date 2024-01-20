@@ -1,6 +1,7 @@
 ﻿using GlobalTicket.TicketManagement.Application;
 using GlobalTicket.TicketManagement.Infrastructure;
 using GlobalTicket.TicketManagement.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace GlobalTicket.TicketManagement.Api
 {
@@ -31,5 +32,24 @@ namespace GlobalTicket.TicketManagement.Api
 
         //    return app;
         //}
+
+        public static async Task ResetDatabaseAsync(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            try
+            {
+                var context = scope.ServiceProvider.GetService<GlobalTicketDbContext>();
+                if (context is not null)
+                {
+                    await context.Database.EnsureDeletedAsync();
+                    await context.Database.MigrateAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+        }
     }
 }

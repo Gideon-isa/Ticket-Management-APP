@@ -1,9 +1,10 @@
 
+
 namespace GlobalTicket.TicketManagement.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ namespace GlobalTicket.TicketManagement.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //
             var app = builder.ConfigureServices();
 
             // Configure the HTTP request pipeline.
@@ -30,6 +32,8 @@ namespace GlobalTicket.TicketManagement.Api
             app.UseCors("open");
 
             app.MapControllers();
+
+            await app.ResetDatabaseAsync();   
 
             app.Run();
         }

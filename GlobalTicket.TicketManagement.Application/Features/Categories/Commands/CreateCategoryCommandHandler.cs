@@ -25,7 +25,10 @@ namespace GlobalTicket.TicketManagement.Application.Features.Categories.Commands
         public async Task<CreateCategoryCommandResponse> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var createCategoryCommandResponse = new CreateCategoryCommandResponse();
+
+            // instantiating a fluentValidation instance
             var validator = new CreateCategoryCommandValidator();
+
             ValidationResult validationResult =  await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Count > 0)
