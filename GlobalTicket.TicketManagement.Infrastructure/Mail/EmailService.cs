@@ -25,7 +25,7 @@ namespace GlobalTicket.TicketManagement.Infrastructure.Mail
             var client = new SendGridClient(_emailSettings.ApiKey);
 
             var subject = email.Subject;
-            var to = new EmailAddress(email.To); // for only address-from
+            var to = new EmailAddress(email.To); // this is for recipient address
             var emailBody = email.Body;
 
             // to make it contain sender name
