@@ -27,6 +27,7 @@ namespace GlobalTicket.TicketManagement.Infrastructure
             // this will bind the "EmailSettings" from the appsetting config to <EmailSettings> class
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 
+            services.AddTransient<ICsvExporter, ICsvExporter>();
             services.AddTransient<IEmailService, EmailService>();
 
             return services;
