@@ -1,5 +1,6 @@
 ﻿using GlobalTicket.TicketManagement.Application.Contracts.Infrastructure;
 using GlobalTicket.TicketManagement.Application.Models.Mail;
+using GlobalTicket.TicketManagement.Infrastructure.FileExport;
 using GlobalTicket.TicketManagement.Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +28,7 @@ namespace GlobalTicket.TicketManagement.Infrastructure
             // this will bind the "EmailSettings" from the appsetting config to <EmailSettings> class
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 
-            services.AddTransient<ICsvExporter, ICsvExporter>();
+            services.AddTransient<ICsvExporter, CsvExporter>();
             services.AddTransient<IEmailService, EmailService>();
 
             return services;

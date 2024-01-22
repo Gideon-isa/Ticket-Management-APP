@@ -31,8 +31,8 @@ namespace GlobalTicket.TicketManagement.Api.Controllers
             return Ok(result);
         }
 
-        [Route("geteventById")]
-        [HttpGet("{id}", Name = "GetEventById")]
+        [Route("geteventbyid", Name = "GetEventById")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<EventDetailVm>> GetEventById(Guid id)
         {
@@ -41,7 +41,8 @@ namespace GlobalTicket.TicketManagement.Api.Controllers
             return Ok(response);
         }
 
-        [Route("addevent")]
+        
+        [Route("addevent", Name= "AddEvent")]
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateEventCommand createEventCommand)
         {
@@ -49,7 +50,8 @@ namespace GlobalTicket.TicketManagement.Api.Controllers
             return Ok(id);
         }
 
-        [HttpPut(Name = "UpdateEvent")]
+        [Route("updateevent", Name = "UpdateEvent")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -59,7 +61,8 @@ namespace GlobalTicket.TicketManagement.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}", Name = "DeleteEvent")]
+        [Route("{id}", Name = "DeleteById")]
+        [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -70,7 +73,7 @@ namespace GlobalTicket.TicketManagement.Api.Controllers
             return NoContent();
         }
 
-        [Route("export", Name ="ExportEvents")]
+        [Route("export", Name = "ExportEvents")]
         [HttpGet]
         public async Task<FileResult> ExportEvent()
         {

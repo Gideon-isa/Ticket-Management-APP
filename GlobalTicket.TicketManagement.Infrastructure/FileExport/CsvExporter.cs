@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Infrastructure.FileExport
 {
-    public class CsvExport : ICsvExporter
+    public class CsvExporter : ICsvExporter
     {
         public byte[] ExportEventsToCsv(List<EventExportDto> eventExportDtos)
         {
