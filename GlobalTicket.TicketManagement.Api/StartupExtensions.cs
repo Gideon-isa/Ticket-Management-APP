@@ -1,7 +1,9 @@
-﻿using GlobalTicket.TicketManagement.Application;
+﻿using GlobalTicket.TicketManagement.Api.Utility;
+using GlobalTicket.TicketManagement.Application;
 using GlobalTicket.TicketManagement.Infrastructure;
 using GlobalTicket.TicketManagement.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace GlobalTicket.TicketManagement.Api
 {
@@ -32,6 +34,20 @@ namespace GlobalTicket.TicketManagement.Api
 
         //    return app;
         //}
+
+        public static void AddSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Version = "v1",
+                    Title = "GlobalTicket Ticket Management API"
+                });
+
+                c.OperationFilter<FileResultContentTypeOperationFilter>();
+            });
+        }
 
         public static async Task ResetDatabaseAsync(this WebApplication app)
         {

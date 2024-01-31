@@ -1,5 +1,7 @@
 
 
+using GlobalTicket.TicketManagement.Api.Middleware;
+
 namespace GlobalTicket.TicketManagement.Api
 {
     public class Program
@@ -22,12 +24,17 @@ namespace GlobalTicket.TicketManagement.Api
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "GlobalTicket Ticket Management API");
+                });
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseCustomExceptionHandler();
 
             app.UseCors("open");
 
