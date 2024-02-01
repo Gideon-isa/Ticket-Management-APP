@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace GlobalTicket.TicketManagement.Application.Features.Categories.Commands
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, CreateCategoryCommandResponse>
+    public class GetCategoriesListQueryHandler : IRequestHandler<CreateCategoryCommand, CreateCategoryCommandResponse>
     {
         private readonly IAsyncRepository<Category> _categoryRepository;
         private readonly IMapper _Mapper;
 
-        public CreateCategoryCommandHandler(IAsyncRepository<Category> categoryRepository, IMapper mapper)
+        public GetCategoriesListQueryHandler(IAsyncRepository<Category> categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _Mapper = mapper;
