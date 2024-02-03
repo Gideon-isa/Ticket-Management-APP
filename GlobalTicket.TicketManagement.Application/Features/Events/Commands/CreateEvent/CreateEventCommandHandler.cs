@@ -56,6 +56,7 @@ namespace GlobalTicket.TicketManagement.Application.Features.Events.Commands.Cre
 
             try
             {
+                // using the SendGrid mail client
                 await _emailService.SendEmail(email);
             }
             catch (Exception e)
